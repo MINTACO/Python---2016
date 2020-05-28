@@ -88,6 +88,59 @@ import re
 # mo = phoneNumRegex.search('Cell: 415-555-9999 Work: 212-555-0000')
 # print(mo.group())
 
-phoneNumRegex = re.compile(r'\d\d\d-\d\d\d-\d\d\d\d') # has no groups
-l = phoneNumRegex.findall('Cell: 415-555-9999 Work: 212-555-0000')
-print(l)
+# phoneNumRegex = re.compile(r'\d\d\d-\d\d\d-\d\d\d\d') # has no groups
+# l = phoneNumRegex.findall('Cell: 415-555-9999 Work: 212-555-0000')
+# print(l)
+
+# 如果在正则表达式中有分组，那么 findall 将返回元组的列表。每个元组表示一个找到的匹配，其中的项就是正则表达式中每个分组的匹配字符串。
+# phoneNumRegex = re.compile(r'(\d\d\d)-(\d\d\d)-(\d\d\d\d)') # has groups
+# l = phoneNumRegex.findall('Cell: 415-555-9999 Work: 212-555-0000')
+# print(l)
+
+
+# 字符分类
+# \d \D \w \W \s \S 
+
+
+# 建立自己的字符分类
+# 有时候缩写的字符分类（\d、\w、\s 等）太宽泛。可以用方括号定义自己的字符分类。
+# 例：
+#   字符分类[aeiouAEIOU]将匹配所有元音字符，不论大小写
+#   可以使用短横表示字母或数字的范围。例如，字符分类[a-zA-Z0-9]将匹配所有小写字母、大写字母和数字。
+# 在方括号内，普通的正则表达式符号不会被解释。不需要加转义字符
+# 在字符分类的左方括号后加上一个插入字符（^），就可以得到“非字符类”。 非字符类将匹配不在这个字符类中的所有字符。
+# consonantRegex = re.compile(r'[^0-9]')
+# l = consonantRegex.findall('hello1234world')
+# print(l)
+
+
+# 插入字符和美元字符
+# 开始处使用插入符号（^），表明匹配必须发生在被查找文本开始处。
+# 末尾加上美元符号（$），表示该字符串必须以这个正则表达式的模式结束。
+
+
+# 通配符
+# 在正则表达式中，.（句点）字符称为“通配符”。它匹配除了换行之外的所有字符。
+# 句点只匹配一个字符
+# 匹配真正的句点加转义符\.
+
+
+# 用点-星匹配所有字符(除去换行符)
+# nameRegex = re.compile(r'First Name: (.*) Last Name: (.*)')
+# mo = nameRegex.search('First Name: Al Last Name: Sweigart')
+# print(mo.group())
+# print(mo.group(1))
+# print(mo.group(2))
+# 使用点-星和问号激活非贪心模式
+# greedyRegex = re.compile(r'<.*>')
+# nongreedyRegex = re.compile(r'<.*?>')
+# mo = greedyRegex.search('<To serve man> for dinner.>')
+# mo1 = nongreedyRegex.search('<To serve man> for dinner.>')
+# print(mo.group())
+# print(mo1.group())
+
+
+# 用句点字符匹配换行
+# 点-星将匹配除换行外的所有字符。通过传入 re.DOTALL 作为 re.compile()的第二个参数，可以让句点字符匹配所有字符，包括换行字符。
+newlineRegex = re.compile('.*', re.DOTALL)
+print(newlineRegex.search('Serve the public trust.\nProtect the innocent.\nUphold the law.').group())
