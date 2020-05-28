@@ -142,5 +142,43 @@ import re
 
 # 用句点字符匹配换行
 # 点-星将匹配除换行外的所有字符。通过传入 re.DOTALL 作为 re.compile()的第二个参数，可以让句点字符匹配所有字符，包括换行字符。
-newlineRegex = re.compile('.*', re.DOTALL)
-print(newlineRegex.search('Serve the public trust.\nProtect the innocent.\nUphold the law.').group())
+# newlineRegex = re.compile('.*', re.DOTALL)
+# print(newlineRegex.search('Serve the public trust.\nProtect the innocent.\nUphold the law.').group())
+
+
+# 忽略大小写的匹配
+# 向 re.compile()传入 re.IGNORECASE 或 re.I，作为第二个参数
+# robocop = re.compile(r'robocop', re.I)
+# print(robocop.search('RoboCop is part man, part machine, all cop, RoboCop.').group())
+
+
+# 用 sub()方法替换字符串
+# 第一个参数是一个字符串，用于取代发现的匹配。第二个参数是一个字符串，即正则表达式。
+# sub()方法返回替换完成后的字符串。
+# namesRegex = re.compile(r'Agent \w+')
+# b = namesRegex.sub('CENSORED', 'Agent Alice gave the secret documents to Agent Bob.')
+# print(b)
+
+# 有时候可能需要使用匹配的文本本身，作为替换的一部分。
+# 在 sub()的第一个参数中，可以输入\1、\2、\3……。表示“在替换参数中输入分组 1、2、3……匹配的文本”。
+# agentNamesRegex = re.compile(r'Agent (\w)\w*') 
+# b = agentNamesRegex.sub(r'\1****', 'Agent Alice told Agent Carol that Agent Eve knew Agent Bob was a double agent.')
+# print(b)
+
+
+# 管理复杂的正则表达式
+# 匹配复杂的文本模式，可能需要长的、费解的正则表达式。可以可以向 re.compile()传入变量 re.VERBOSE，
+# 作为第二个参数，忽略正则表达式字符串中的空白符和注释
+# phoneRegex = re.compile(r'''(
+#     (\d{3}|\(\d{3}\))? # area code
+#     (\s|-|\.)? # separator
+#     \d{3} # first 3 digits
+#     (\s|-|\.) # separator
+#     \d{4} # last 4 digits
+#     (\s*(ext|x|ext.)\s*\d{2,5})? # extension
+# )''', re.VERBOSE)
+
+
+# 组合使用 re.IGNOREC ASE、re.DOTALL 和 re.VERBOSE
+# 由于re.compile()只能接受一个值作为第二参数，可以使用|连接多个参数
+# someRegexValue = re.compile('foo', re.IGNORECASE | re.DOTALL | re.VERBOSE)
