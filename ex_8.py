@@ -71,8 +71,8 @@ import os
 # print(os.listdir('.\\'))
 
 # totalSize = 0
-# for fileNmae in os.listdir('.\\'):
-#     totalSize += os.path.getsize(os.path.join('.', fileNmae))
+# for fileName in os.listdir('.\\'):
+#     totalSize += os.path.getsize(os.path.join('.', fileName))
 # print(str(round(totalSize / 1024**2, 2)) + ' MB')
 
     # 检查路径有效性
